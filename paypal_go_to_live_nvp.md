@@ -21,12 +21,26 @@ Guida di riferimento: [https://developer.paypal.com/docs/classic/api/apiCredenti
 * Scarica quindi il certificato sul computer. Sarà un file `cert_key_pem.txt`
 ![Certificato e credenziali](images/paypal_credentials_4.png)
 * Copia le credenziali nei relativi campi del file `.env` in production: 
-  - valore di "Nome utente API" in env('PAYPAL_ACCOUNT_USERNAME'),
-  - valore di "Password API" in env('PAYPAL_ACCOUNT_PASSWORD'),
-  - valore di "Impronta digitale" in env('PAYPAL_ACCOUNT_SIGNATURE'),
+  - valore di "Nome utente API" in `env('PAYPAL_ACCOUNT_USERNAME')`,
+  - valore di "Password API" in `env('PAYPAL_ACCOUNT_PASSWORD')`,
+  - valore di "Impronta digitale" in `env('PAYPAL_ACCOUNT_SIGNATURE')`,
+
+#### Discussione SIGNATURE o CERTIFICATO?
+
+l'SDK Php di PayPal permette di utilizzare o la SIGNATURE o il CERTIFICATO per l'autenticazione tramite API. Per le applicazioni in produzione è consigliato l'utilizzo di un certificato per garantire una migliore sicurezza sulla transazione dei dati. 
+
+Se ci sono problemi in locale nel test del certicato fare riferimento [a questa issue](https://github.com/curl/curl/issues/283) ed alla sua [possibile risoluzione](http://stackoverflow.com/questions/20457071/ssl-certificates-os-x-mavericks/24433135#24433135)
 
 #### Predisposizione certificato cifrato p12
 
-* Aprire 
+* Da riga di comando spostarsi nella cartella dove è presente il file `cert_key_pem.txt` ed eseguire:
+```
+openssl pkcs12 -export -inkey cert_key_pem.txt -in cert_key_pem.txt -out cert_key.p12
+```
+E inserire la password del certificato che andrà poi salvata nel file `.env` sul server in produzione nel campo `env('PAYPAL_CERTIFICATE_PASSWORD')`
+Per convertire il certificato p12 in pem è possibile eseguire la riga di comando: 
+```
+openssl pkcs12 -in cert_key.p12 -out cert_key.pem -nodes
+```
 
 
