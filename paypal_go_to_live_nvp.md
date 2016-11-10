@@ -43,4 +43,10 @@ Per convertire il certificato p12 in pem è possibile eseguire la riga di comand
 openssl pkcs12 -in cert_key.p12 -out cert_key.pem -nodes
 ```
 
+### Creazione dell'APP
+
+* Accedere a [https://www.paypal-apps.com/user/my-account/applications/](https://www.paypal-apps.com/user/my-account/applications/)
+* Creare una nuova app e riempire i campi del form con l'aiuto del cliente
+
+Una volta creata e approvata l'app verrà fornito l'`APP-ID` da inserire sia lato mobile che lato server per far funzionare il tutto
 
