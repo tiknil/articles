@@ -31,6 +31,8 @@ l'SDK Php di PayPal permette di utilizzare o la SIGNATURE o il CERTIFICATO per l
 
 Se ci sono problemi in locale nel test del certicato fare riferimento [a questa issue](https://github.com/curl/curl/issues/283) ed alla sua [possibile risoluzione](http://stackoverflow.com/questions/20457071/ssl-certificates-os-x-mavericks/24433135#24433135)
 
+Funzionamento con certificato .p12 testato in locale su Mac con OS X Sierra. 
+
 #### Predisposizione certificato cifrato p12
 
 * Da riga di comando spostarsi nella cartella dove è presente il file `cert_key_pem.txt` ed eseguire:
@@ -38,10 +40,8 @@ Se ci sono problemi in locale nel test del certicato fare riferimento [a questa 
 openssl pkcs12 -export -inkey cert_key_pem.txt -in cert_key_pem.txt -out cert_key.p12
 ```
 E inserire la password del certificato che andrà poi salvata nel file `.env` sul server in produzione nel campo `env('PAYPAL_CERTIFICATE_PASSWORD')`
-Per convertire il certificato p12 in pem è possibile eseguire la riga di comando: 
-```
-openssl pkcs12 -in cert_key.p12 -out cert_key.pem -nodes
-```
+
+Una volta predisposto il certificato `.p12` lo si deve mettere nella cartella `storage/certs`.
 
 ### Creazione dell'APP
 
