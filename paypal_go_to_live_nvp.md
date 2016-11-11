@@ -43,6 +43,14 @@ E inserire la password del certificato che andrà poi salvata nel file `.env` su
 
 Una volta predisposto il certificato `.p12` lo si deve mettere nella cartella `storage/certs`.
 
+**NOTA**
+Per il test su Mac OS X è necessario utilizzare i file certificati `.p12`, mentre su sistema operativo ubuntu bisogna uploadare i certificati in formato `.pem`. 
+
+Per convertire il certificato p12 in pem è possibile eseguire la riga di comando: 
+```
+openssl pkcs12 -in cert_key.p12 -out cert_key.pem -nodes
+```
+
 ### Creazione dell'APP
 
 * Accedere a [https://www.paypal-apps.com/user/my-account/applications/](https://www.paypal-apps.com/user/my-account/applications/)
