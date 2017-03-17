@@ -74,7 +74,7 @@ php artisan db:seed
 ...
 ```
 
-#### 7. Comandi docker
+## Comandi docker
 
 Per fermare il docker:
 ```
