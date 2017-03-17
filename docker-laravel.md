@@ -32,7 +32,7 @@ Questo creerà un link virtuale tra l'`.env` di progetto e le configurazioni dei
 * Configurare il proprio `.env` locale affinché sia impostato come le configurazioni del docker, quindi: 
  * `DB_HOST=mysql` per la connessione al database (user: `homestead`, pw: `secret`, vedi `mysql/Dockerfile` o `docker-compose.yml`)
  * Valorizzare: `SERVER_ALIAS`, `SERVER_PORT`, `SERVER_SSL_PORT`
- * Valorizzare `DB_
+ * Valorizzare `DB_PORT`, `DB_DATABASE`, `DB_PASSWORD`, `DB_USERNAME` se si vogliono dei valori diversi da quelli di default
 
 #### 4. Impostazione host personalizzato, ad es: `local.project.net`
 
