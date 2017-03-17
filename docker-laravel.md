@@ -46,7 +46,12 @@ Riavviate i container docker e accedete al sito tramite il dominio che avete con
 
 #### 5. Avviare i container docker
 
-Per avviare i container docker eseguire (ad esempio):
+1. Spostarsi all'interno della cartella di `laradock`
+2. Buildare i container necessari con i nuovi parametri del progetto (ad esempio):
+```
+docker-compose build --no-cache apache2 mysql php-worker
+```
+3. Per avviare i container docker eseguire (ad esempio):
 
 ```
 docker-compose up -d apache2 mysql php-worker
