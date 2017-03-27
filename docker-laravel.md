@@ -65,6 +65,8 @@ Una volta eseguito dovrebbe essere possibile raggiungere la radice del progetto 
 
 #### 6. Eseguire comandi per inizializzazione progetto
 
+> Nota: nel progetto potrebbe essere già configurato in Envoy un task `local` che esegue i comandi di inizializzazione/aggiornamento del repo locale
+
 Accedere al terminale del "container" che permette l'esecuzione dei comandi sul progetto
 ```
 docker-compose exec workspace bash
