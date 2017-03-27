@@ -47,15 +47,15 @@ Riavviate i container docker e accedete al sito tramite il dominio che avete con
 #### 5. Avviare i container docker
 
 1. Spostarsi all'interno della cartella di `laradock`
-2. Buildare i container necessari con i nuovi parametri del progetto (ad esempio):
-```
-docker-compose build --no-cache apache2 mysql php-worker
-```
-3. Per avviare i container docker eseguire (ad esempio):
+2. Per avviare i container docker eseguire (ad esempio):
 
 ```
 docker-compose up -d apache2 mysql php-worker
 ```
+
+> Nota: il container `workspace`, che è quello dove risiedono i file di progetto, verrà eseguito in automatico
+
+> Se ci sono problemi di configurazione o altro si consiglia di "distruggere" i container con il comando `docker-compose down` e forzare il rebuild con `docker-compose build --no-cache apache2 mysql php-worker workspace`
 
 Una volta eseguito dovrebbe essere possibile raggiungere la radice del progetto nel proprio browser all'indirizzo:
 `http://$SERVER_ALIAS:$SERVER_PORT`, ad esempio: `http://local.project.net:8888`
