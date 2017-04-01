@@ -30,7 +30,7 @@ Se il progetto Laravel non è configurato per utilizzare `docker` eseguire le se
 
 #### 1. Importare `tiknil/laradock`
 
-Includere nella root di progetto Laravel il `submodule` [`tiknil/laradock`](https://github.com/tiknil/laradock) __specificando la cartella destinazione `laradock_[nomeprogetto]`:
+Includere nella root di progetto Laravel il `submodule` [`tiknil/laradock`](https://github.com/tiknil/laradock) __specificando la cartella destinazione__ `laradock_[nomeprogetto]`:
 
 ```
 git submodule add https://github.com/tiknil/laradock.git laradock_[nomeprogetto]
@@ -38,7 +38,7 @@ git submodule add https://github.com/tiknil/laradock.git laradock_[nomeprogetto]
 
 #### 2. Impostare riferimento a `.env` locale
 
-1. Spostarsi all'interno della cartella di `laradock`
+1. Spostarsi all'interno della cartella di `laradock_[nomeprogetto]`
 2. Eseguire il comando:
 
 ```
