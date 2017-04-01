@@ -6,14 +6,34 @@
 2. Rendere identico l'ambiente di development e il production
 3. Eseguire la Continous Integration in un ambiente identico a development e production
 
-### Steps
+### Uso
 
-#### 1. Importare `laradock`
+> Inizia ad usare `docker` e imparalo poi. 
 
-Includere nella root di progetto Laravel il `submodule` [`tiknil/laradock`](https://github.com/tiknil/laradock):
+#### Avviare docker
+
+1. Spostarsi all'interno della cartella di `laradock_[nomeprogetto]`
+2. Eseguire: 
 
 ```
-git submodule add https://github.com/tiknil/laradock.git
+docker-compose up -d apache2 mysql php-worker
+```
+
+Una volta eseguito dovrebbe essere possibile raggiungere la radice del progetto nel proprio browser all'indirizzo:
+`http://$SERVER_ALIAS:$SERVER_PORT`, ad esempio: `http://local.project.net:8888`. Le variabili `SERVER_ALIAS` e `SERVER_PORT` sono definite nel file `.env` del progetto Laravel
+
+[http://local.project.net:8888](http://local.project.net:8888)
+
+### Inizializzazione progetto Laravel
+
+Se il progetto Laravel non è configurato per utilizzare `docker` eseguire le seguenti operazioni:
+
+#### 1. Importare `tiknil/laradock`
+
+Includere nella root di progetto Laravel il `submodule` [`tiknil/laradock`](https://github.com/tiknil/laradock) __specificando la cartella destinazione `laradock_[nomeprogetto]`:
+
+```
+git submodule add https://github.com/tiknil/laradock.git laradock_[nomeprogetto]
 ```
 
 #### 2. Impostare riferimento a `.env` locale
@@ -29,45 +49,54 @@ Questo creerà un link virtuale tra l'`.env` di progetto e le configurazioni dei
 
 #### 3. Configurazione `.env`
 
-* Configurare il proprio `.env` locale affinché sia impostato come le configurazioni del docker, quindi:
- * `DB_HOST=mysql` per la connessione al database (user: `homestead`, pw: `secret`, vedi `mysql/Dockerfile` o `docker-compose.yml`)
+* All'interno del file `.env` di progetto configurare:
+ * `DB_HOST=mysql` per la connessione al database
  * Valorizzare: `SERVER_ALIAS`, `SERVER_PORT`, `SERVER_SSL_PORT`
- * Valorizzare `DB_PORT`, `DB_DATABASE`, `DB_PASSWORD` e `DB_USERNAME` se si vogliono dei valori diversi da quelli di default
+ * Valorizzare `DB_PORT`, `DB_DATABASE`, `DB_PASSWORD` e `DB_USERNAME`
 
 #### 4. Impostazione host personalizzato, ad es: `local.project.net`
 
 Modificare il file `hosts` locale (solitamente il percorso è `/etc/hosts` e serve accedere come `sudo` per modificare) inserendo:
 
 ```
-127.0.0.1	local.project.net
+127.0.0.1	[$SERVER_ALIAS]
 ```
 
-Riavviate i container docker e accedete al sito tramite il dominio che avete configurato.
+ad esempio:
 
-#### 5. Avviare i container docker
+```
+127.0.0.1 local.project.it
+```
 
-1. Spostarsi all'interno della cartella di `laradock`
-2. Per avviare i container docker eseguire (ad esempio):
+Riavviate i container docker e accedete al sito tramite il dominio e la porta che avete configurato.
+
+### Docker containers
+
+Avviando docker tramite il comando: 
 
 ```
 docker-compose up -d apache2 mysql php-worker
 ```
 
-> Nota: il container `workspace`, che è quello dove risiedono i file di progetto, verrà eseguito in automatico
+Vengono avviati i seguenti container:
 
-> Se ci sono problemi di configurazione o altro si consiglia di "distruggere" i container con il comando `docker-compose down` e forzare il rebuild con `docker-compose build --no-cache apache2 mysql php-worker workspace`
+```
+- apache2 (configurato con virtual host definito da SERVER_ALIAS e SERVER_PORT / SERVER_SSL_PORT
+- mysql (configurato con le variabili DB_*)
+- php-worker (che esegue le queue di laravel tramite un job persistente)
+- workspace (è un container specifico che fa da storage dei file di progetto. E' il punto centrale, per così dire, dei container del progetto)
+- php_fpm (è il container che si preoccupa di gestire l'eseguibile PHP con FPM)
+```
 
-Una volta eseguito dovrebbe essere possibile raggiungere la radice del progetto nel proprio browser all'indirizzo:
-`http://$SERVER_ALIAS:$SERVER_PORT`, ad esempio: `http://local.project.net:8888`
+## Troubleshooting
 
-> [http://local.project.net:8888](http://local.project.net:8888)
+> Se ci sono problemi di configurazione o altro si consiglia di "distruggere" i container con il comando `docker-compose down`e forzare il rebuild con `docker-compose build --no-cache apache2 mysql php-worker workspace`
 
 
-#### 6. Eseguire comandi per inizializzazione progetto
-
-> Nota: nel progetto potrebbe essere già configurato in Envoy un task `local` che esegue i comandi di inizializzazione/aggiornamento del repo locale
+#### Eseguire comandi per inizializzazione progetto
 
 Accedere al terminale del "container" che permette l'esecuzione dei comandi sul progetto
+
 ```
 docker-compose exec workspace bash
 ```
