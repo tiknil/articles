@@ -13,7 +13,7 @@
 #### Avviare docker
 
 1. Spostarsi all'interno della cartella di `laradock_[nomeprogetto]`
-2. Verificare di avere all'interno della cartella il link simbolico al file `.env` del progetto nella cartella precedente, altrimenti leggere al paragrafo [Impostare riferimento a `.env` locale](#impostare-riferimento-a-.env-locale)
+2. Verificare di avere all'interno della cartella il link simbolico al file `.env` del progetto nella cartella precedente, altrimenti leggere al paragrafo [Impostare riferimento a `.env` locale](#impostare-riferimento-a-env-locale)
 3. Eseguire: 
 
 ```
